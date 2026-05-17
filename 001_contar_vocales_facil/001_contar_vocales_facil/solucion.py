@@ -1,13 +1,34 @@
 # 001 · Contar vocales · Fácil
 # ─────────────────────────────────────────────────────
 
-def contar_vocales(texto: str) -> dict:
-    vocales = 'aeiou'
-    texto = texto.lower()
-    return {vocal: texto.count(vocal) for vocal in vocales}
+from collections import Counter
+
+
+def contar_vocales(texto: str) -> dict[str, int]:
+    """
+    Cuenta cuántas veces aparece cada vocal en un texto.
+
+    Args:
+        texto: Texto a analizar.
+
+    Returns:
+        Diccionario con el total de cada vocal.
+    """
+
+    contador = Counter(c for c in texto.lower() if c in "aeiou")
+
+    return {
+        vocal: contador.get(vocal, 0)
+        for vocal in "aeiou"
+    }
 
 
 if __name__ == "__main__":
-    print(contar_vocales("hola mundo"))  # {'a': 1, 'e': 0, 'i': 0, 'o': 2, 'u': 1}
-    print(contar_vocales("AEIOU"))       # {'a': 1, 'e': 1, 'i': 1, 'o': 1, 'u': 1}
-    print(contar_vocales(""))            # {'a': 0, 'e': 0, 'i': 0, 'o': 0, 'u': 0}
+    ejemplos = [
+        "hola mundo",
+        "AEIOU",
+        "",
+    ]
+
+    for texto in ejemplos:
+        print(f'"{texto}" -> {contar_vocales(texto)}')
